@@ -13,9 +13,11 @@ define('SLAB_CLI_BOOT', true);
 define('WP_USE_THEMES', false);
 
 
-// Load
+// Setup
 require_once '../../../wp-load.php';
+@ini_set('memory_limit', -1);
 
 
 // Execute
-$console = slab('Slab\Cli\Dispatcher')->dispatch($argv);
+$status = slab('Slab\Cli\Dispatcher')->dispatch($argv);
+die($status);
