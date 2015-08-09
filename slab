@@ -1,0 +1,21 @@
+#!/usr/bin/env php
+<?php
+
+// Check
+if(php_sapi_name() !== 'cli') {
+	echo 'Slab CLI can only be accessed from command line.';
+	die(-1);
+}
+
+
+// Define
+define('SLAB_CLI_BOOT', true);
+define('WP_USE_THEMES', false);
+
+
+// Load
+require_once '../../../wp-load.php';
+
+
+// Execute
+$console = slab('Slab\Cli\Dispatcher')->dispatch($argv);
