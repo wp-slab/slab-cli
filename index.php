@@ -26,12 +26,12 @@ add_action('slab_init', 'slab_cli_init');
 // Init
 function slab_cli_init($slab) {
 
-	$slab->autoloader->registerNamespace('Slab\\Cli', SLAB_CLI_DIR . 'src');
+	$slab->autoloader->registerNamespace('Slab\Cli', SLAB_CLI_DIR . 'src');
 
 	$dispatcher = new Slab\Cli\Dispatcher;
 	$dispatcher->addCommand(new Slab\Cli\Command('list'));
 	$dispatcher->addCommand(new Slab\Cli\Command('cron'));
 
-	$slab->singleton('Slab\\Cli\\Dispatcher', $dispatcher);
+	$slab->singleton('Slab\Cli\Dispatcher', $dispatcher);
 
 }
