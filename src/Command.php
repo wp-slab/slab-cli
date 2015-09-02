@@ -58,4 +58,21 @@ class Command implements CommandInterface {
 
 
 
+	/**
+	 * Execute the command with the provided input
+	 *
+	 * @param array Arguments
+	 * @param array Options
+	 * @return int Exit status
+	 **/
+	public function executeCommand(array $arguments, array $options) {
+
+		var_dump("Executing {$this->name}", $arguments, $options);
+
+		return 0;
+
+	}
+
+
+
 }

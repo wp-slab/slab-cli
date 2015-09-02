@@ -28,10 +28,18 @@ function slab_cli_init($slab) {
 
 	$slab->autoloader->registerNamespace('Slab\Cli', SLAB_CLI_DIR . 'src');
 
-	$dispatcher = new Slab\Cli\Dispatcher;
-	$dispatcher->addCommand(new Slab\Cli\Command('list'));
-	$dispatcher->addCommand(new Slab\Cli\Command('cron'));
+	$slab->singleton('Slab\Cli\CommandCollection', function(){
 
-	$slab->singleton('Slab\Cli\Dispatcher', $dispatcher);
+		$collection = new Slab\Cli\CommandCollection;
+
+		$collection->addCommand(new Slab\Cli\Command('list'));
+		$collection->addCommand(new Slab\Cli\Command('help'));
+		$collection->addCommand(new Slab\Cli\Command('cron'));
+
+		return $collection;
+
+	});
+
+	$slab->alias('commands', 'Slab\Cli\CommandCollection');
 
 }
