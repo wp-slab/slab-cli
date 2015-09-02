@@ -2,6 +2,8 @@
 
 namespace Slab\Cli;
 
+use RuntimeException;
+
 /**
  * Command Collection
  *
