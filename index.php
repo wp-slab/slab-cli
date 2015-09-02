@@ -40,7 +40,7 @@ function slab_cli_init($slab) {
 
 add_action('slab_commands', function($commands){
 
-	$commands->addCommand(new Slab\Cli\Command('list'));
+	$commands->addCommand(new Slab\Cli\Commands\ListCommandsCommand);
 	$commands->addCommand(new Slab\Cli\Command('help'));
 	$commands->addCommand(new Slab\Cli\Command('cron'));
 
