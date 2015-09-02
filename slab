@@ -18,6 +18,11 @@ require_once '../../../wp-load.php';
 @ini_set('memory_limit', -1);
 
 
+// Collect
+$commands = slab('Slab\Cli\CommandCollection');
+do_action('slab_commands', $commands);
+
+
 // Execute
 $status = slab('Slab\Cli\Dispatcher')->dispatch($argv);
 die($status);
