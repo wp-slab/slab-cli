@@ -2,7 +2,8 @@
 
 namespace Slab\Cli\Commands;
 
-use Slab\Cli\CommandInterface;
+use Slab\Cli\Command;
+use Slab\Cli\CommandCollection;
 
 /**
  * List Commands Command
@@ -10,7 +11,7 @@ use Slab\Cli\CommandInterface;
  * @package default
  * @author Luke Lanchester
  **/
-class ListCommandsCommand implements CommandInterface {
+class ListCommandsCommand extends Command {
 
 
 	/**
@@ -20,30 +21,14 @@ class ListCommandsCommand implements CommandInterface {
 
 
 	/**
-	 * Get command name
+	 * Execute the command
 	 *
-	 * @return string Command name
+	 * @param Slab\Cli\CommandCollection
+	 * @return void
 	 **/
-	public function getName() {
+	public function fire(CommandCollection $commands) {
 
-		return $this->name;
-
-	}
-
-
-
-	/**
-	 * Execute the command with the provided input
-	 *
-	 * @param array Arguments
-	 * @param array Options
-	 * @return int Exit status
-	 **/
-	public function executeCommand(array $arguments, array $options) {
-
-		$commands = slab('Slab\Cli\CommandCollection')->getCommands();
-
-		foreach($commands as $command) {
+		foreach($commands->getCommands() as $command) {
 			echo $command->getName() . "\n";
 		}
 

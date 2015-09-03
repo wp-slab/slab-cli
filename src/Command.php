@@ -8,7 +8,7 @@ namespace Slab\Cli;
  * @package default
  * @author Luke Lanchester
  **/
-class Command implements CommandInterface {
+abstract class Command implements CommandInterface {
 
 
 	/**
@@ -18,17 +18,15 @@ class Command implements CommandInterface {
 
 
 	/**
-	 * Constructor
-	 *
-	 * @param string Command name
-	 * @return void
+	 * @var string Command description
 	 **/
-	public function __construct($name) {
+	protected $description;
 
-		$this->setName($name);
 
-	}
-
+	/**
+	 * @var string Method to execute
+	 **/
+	protected $execute_method = 'fire';
 
 
 	/**
@@ -59,6 +57,33 @@ class Command implements CommandInterface {
 
 
 	/**
+	 * Set method to be executed on trigger
+	 *
+	 * @param string Method name
+	 * @return void
+	 **/
+	public function setExecuteMethod($method) {
+
+		$this->execute_method = $method;
+
+	}
+
+
+
+	/**
+	 * Get method to be executed on trigger
+	 *
+	 * @return string Method name
+	 **/
+	public function getExecuteMethod() {
+
+		return $this->execute_method;
+
+	}
+
+
+
+	/**
 	 * Execute the command with the provided input
 	 *
 	 * @param array Arguments
@@ -67,9 +92,9 @@ class Command implements CommandInterface {
 	 **/
 	public function executeCommand(array $arguments, array $options) {
 
-		var_dump("Executing {$this->name}", $arguments, $options);
+		// var_dump("Executing {$this->name}", $arguments, $options);
 
-		return 0;
+		return slab()->fireMethod($this, $this->getExecuteMethod());
 
 	}
 

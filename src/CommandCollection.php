@@ -4,6 +4,8 @@ namespace Slab\Cli;
 
 use RuntimeException;
 
+use Slab\Core\Application;
+
 /**
  * Command Collection
  *
@@ -17,6 +19,25 @@ class CommandCollection {
 	 * @var array Commands
 	 **/
 	protected $commands = [];
+
+
+	/**
+	 * @var Slab\Core\Application
+	 **/
+	protected $container;
+
+
+	/**
+	 * Constructor
+	 *
+	 * @param Slab\Core\Application
+	 * @return void
+	 **/
+	public function __construct(Application $container) {
+
+		$this->container = $container;
+
+	}
 
 
 
@@ -62,6 +83,36 @@ class CommandCollection {
 		}
 
 		$this->commands[$name] = $command;
+
+	}
+
+
+
+	/**
+	 * Resolve a command
+	 *
+	 * @param class Command class
+	 * @return void
+	 **/
+	public function resolve($str) {
+
+		$pos = strpos($str, '@');
+
+		if($pos === false) {
+			$class = $str;
+			$method = null;
+		} else {
+			$class = substr($str, 0, $pos);
+			$method = substr($str, $pos + 1);
+		}
+
+		$command = $this->container->make($class);
+
+		if($method) {
+			$command->setExecuteMethod($method);
+		}
+
+		return $this->addCommand($command);
 
 	}
 
