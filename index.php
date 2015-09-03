@@ -21,6 +21,7 @@ define('SLAB_CLI_URL', plugin_dir_url(__FILE__));
 
 // Hooks
 add_action('slab_init', 'slab_cli_init');
+add_action('slab_commands', 'slab_cli_default_commands');
 
 
 // Init
@@ -38,10 +39,10 @@ function slab_cli_init($slab) {
 
 }
 
-add_action('slab_commands', function($commands){
+function slab_cli_default_commands($commands) {
 
 	$commands->resolve('Slab\Cli\Commands\ListCommandsCommand');
 	// $commands->addCommand(new Slab\Cli\Command('help'));
 	// $commands->addCommand(new Slab\Cli\Command('cron'));
 
-});
+}
