@@ -56,7 +56,7 @@ class InputParser {
 	 **/
 	public function parseArgument($str) {
 
-		return $str;
+		return trim($str, '"');
 
 	}
 
@@ -82,7 +82,7 @@ class InputParser {
 		}
 
 		$key = substr($str, 0, $pos);
-		$value = substr($str, $pos + 1);
+		$value = trim(substr($str, $pos + 1), '"');
 
 		return [$key, $value];
 

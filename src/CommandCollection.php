@@ -4,7 +4,7 @@ namespace Slab\Cli;
 
 use RuntimeException;
 
-use Slab\Core\Application;
+use Slab\Core\ContainerInterface;
 
 /**
  * Command Collection
@@ -22,7 +22,7 @@ class CommandCollection {
 
 
 	/**
-	 * @var Slab\Core\Application
+	 * @var Slab\Core\ContainerInterface
 	 **/
 	protected $container;
 
@@ -30,10 +30,10 @@ class CommandCollection {
 	/**
 	 * Constructor
 	 *
-	 * @param Slab\Core\Application
+	 * @param Slab\Core\ContainerInterface
 	 * @return void
 	 **/
-	public function __construct(Application $container) {
+	public function __construct(ContainerInterface $container) {
 
 		$this->container = $container;
 

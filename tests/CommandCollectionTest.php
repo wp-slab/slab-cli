@@ -1,5 +1,7 @@
 <?php
 
+use Mockery as m;
+
 use Slab\Cli\CommandCollection;
 
 /**
@@ -18,8 +20,23 @@ class CommandCollectionTest extends PHPUnit_Framework_TestCase {
 	 **/
 	public function testCanInstantiateCollection() {
 
-		$collection = new CommandCollection;
+		$container = m::mock('Slab\Core\ContainerInterface');
+
+		$collection = new CommandCollection($container);
 		$this->assertInstanceOf('Slab\Cli\CommandCollection', $collection);
+
+	}
+
+
+
+	/**
+	 * Tear down tests
+	 *
+	 * @return void
+	 **/
+	public function tearDown() {
+
+		m::close();
 
 	}
 
