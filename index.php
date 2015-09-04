@@ -21,7 +21,7 @@ define('SLAB_CLI_URL', plugin_dir_url(__FILE__));
 
 // Hooks
 add_action('slab_init', 'slab_cli_init');
-add_action('slab_commands', 'slab_cli_default_commands');
+add_action('slab_cli_commands', 'slab_cli_default_commands');
 
 
 // Init
@@ -31,7 +31,7 @@ function slab_cli_init($slab) {
 
 	$slab->singleton('Slab\Cli\CommandCollection', function($app){
 		$collection = new Slab\Cli\CommandCollection($app);
-		do_action('slab_commands', $collection);
+		do_action('slab_cli_commands', $collection);
 		return $collection;
 	});
 
