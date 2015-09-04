@@ -50,6 +50,10 @@ class Dispatcher {
 
 		list($name, $arguments, $options) = $this->parser->parseInput($argv);
 
+		if(empty($name)) {
+			$name = 'list';
+		}
+
 		$command = $this->commands->getCommand($name);
 
 		if(!$command) {
