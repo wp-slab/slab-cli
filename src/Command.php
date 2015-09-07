@@ -2,6 +2,8 @@
 
 namespace Slab\Cli;
 
+use Slab\Core\ContainerInterface;
+
 /**
  * Command
  *
@@ -86,15 +88,18 @@ abstract class Command implements CommandInterface {
 	/**
 	 * Execute the command with the provided input
 	 *
+	 * @param Slab\Core\ContainerInterface
 	 * @param array Arguments
 	 * @param array Options
 	 * @return int Exit status
 	 **/
-	public function executeCommand(array $arguments, array $options) {
+	public function executeCommand(ContainerInterface $container, array $arguments, array $options) {
 
 		// var_dump("Executing {$this->name}", $arguments, $options);
 
-		return slab()->fireMethod($this, $this->getExecuteMethod());
+		// $this->setOutputter($container->make('Slab\Cli\Outputter'));
+
+		return $container->fireMethod($this, $this->getExecuteMethod());
 
 	}
 

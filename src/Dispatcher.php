@@ -4,6 +4,8 @@ namespace Slab\Cli;
 
 use RuntimeException;
 
+use Slab\Core\ContainerInterface;
+
 /**
  * Dispatcher a command line request
  *
@@ -26,15 +28,24 @@ class Dispatcher {
 
 
 	/**
+	 * @var Slab\Core\ContainerInterface
+	 **/
+	protected $container;
+
+
+	/**
 	 * Constructor
 	 *
+	 * @param Slab\Core\ContainerInterface
 	 * @param Slab\Cli\CommandCollection
+	 * @param Slab\Cli\InputParser
 	 * @return void
 	 **/
-	public function __construct(CommandCollection $commands) {
+	public function __construct(ContainerInterface $container, CommandCollection $commands, InputParser $parser) {
 
+		$this->container = $container;
 		$this->commands = $commands;
-		$this->parser = new InputParser;
+		$this->parser = $parser;
 
 	}
 
@@ -60,7 +71,7 @@ class Dispatcher {
 			throw new RuntimeException("Command not found: $name");
 		}
 
-		return $command->executeCommand($arguments, $options);
+		return $this->container->fireMethod($command, 'executeCommand', [$arguments, $options]);
 
 	}
 
