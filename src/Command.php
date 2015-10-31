@@ -14,7 +14,7 @@ use Slab\Core\ContainerInterface;
  * @package default
  * @author Luke Lanchester
  **/
-abstract class Command extends SymfonyCommand implements CommandInterface {
+abstract class Command extends SymfonyCommand {
 
 
 	/**
