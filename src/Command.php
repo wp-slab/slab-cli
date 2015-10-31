@@ -16,48 +16,9 @@ abstract class Command extends SymfonyCommand implements CommandInterface {
 
 
 	/**
-	 * @var string Command name
-	 **/
-	protected $name;
-
-
-	/**
-	 * @var string Command description
-	 **/
-	protected $description;
-
-
-	/**
 	 * @var string Method to execute
 	 **/
 	protected $execute_method = 'fire';
-
-
-	/**
-	 * Set command name
-	 *
-	 * @param string Command name
-	 * @return void
-	 **/
-	public function setName($name) {
-
-		$this->name = strtolower(trim($name));
-
-	}
-
-
-
-	/**
-	 * Get command name
-	 *
-	 * @return string Command name
-	 **/
-	public function getName() {
-
-		return $this->name;
-
-	}
-
 
 
 	/**

@@ -17,6 +17,7 @@ Requires: slab-core
 define('SLAB_CLI_INIT', true);
 define('SLAB_CLI_DIR', plugin_dir_path(__FILE__));
 define('SLAB_CLI_URL', plugin_dir_url(__FILE__));
+define('SLAB_CLI_VER', '1.0.0');
 
 
 // Includes

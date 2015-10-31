@@ -31,7 +31,9 @@ function slab_cli_init($slab) {
  **/
 function slab_cli_default_commands($commands) {
 
-	$commands->resolve('Slab\Cli\Commands\ListCommandsCommand');
+	$commands->resolve('Slab\Cli\Commands\TestCommand');
+
+	// $commands->resolve('Slab\Cli\Commands\ListCommandsCommand');
 	// $commands->addCommand(new Slab\Cli\Command('help'));
 	// $commands->addCommand(new Slab\Cli\Command('cron'));
 
