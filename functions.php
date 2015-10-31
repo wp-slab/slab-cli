@@ -10,7 +10,7 @@ namespace Slab\Cli;
  **/
 function slab_cli_init($slab) {
 
-	$slab->autoloader->registerNamespace('Slab\Cli', SLAB_CLI_DIR . 'src');
+	// $slab->autoloader->registerNamespace('Slab\Cli', SLAB_CLI_DIR . 'src');
 
 	$slab->singleton('Slab\Cli\CommandCollection', function($app){
 		$collection = new CommandCollection($app);
