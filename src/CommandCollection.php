@@ -109,7 +109,7 @@ class CommandCollection {
 		$command = $this->container->make($class);
 
 		if($method) {
-			$command->setExecuteMethod($method);
+			$command->setMethod($method);
 		}
 
 		return $this->addCommand($command);

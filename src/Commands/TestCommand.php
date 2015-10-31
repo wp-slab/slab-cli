@@ -18,51 +18,69 @@ use Slab\Cli\Command;
 class TestCommand extends Command {
 
 
-	protected function configure()
-	    {
-	        $this
-	            ->setName('demo:greet')
-	            ->setDescription('Greet someone')
-            ->addArgument(
-                'name',
-                InputArgument::OPTIONAL,
-                'Who do you want to greet?'
-            )
-            ->addOption(
-               'yell',
-               null,
-               InputOption::VALUE_NONE,
-               'If set, the task will yell in uppercase letters'
-            )
-	        ;
-	    }
-
-
-	    protected function execute(InputInterface $input, OutputInterface $output)
-	        {
-	            $name = $input->getArgument('name');
-	            if ($name) {
-	                $text = 'Hello '.$name;
-	            } else {
-	                $text = 'Hello';
-	            }
-
-	            if ($input->getOption('yell')) {
-	                $text = strtoupper($text);
-	            }
-
-	            $output->writeln($text);
-	        }
+	/**
+	 * @var string Command name
+	 **/
+	protected $name = 'slab:greet';
 
 
 	/**
-	 * Execute the command
+	 * @var string Command description
+	 **/
+	protected $description = 'Say hello to the world';
+
+
+	/**
+	 * Command arguments
+	 *
+	 * @return array Arguments
+	 **/
+	public function getArguments() {
+
+		return [
+			['name', InputArgument::OPTIONAL, 'Your name', null],
+		];
+
+	}
+
+
+
+	/**
+	 * Command options
+	 *
+	 * @return array Options
+	 **/
+	public function getOptions() {
+
+		return [
+			['yell', null, InputOption::VALUE_NONE, '', null],
+		];
+
+	}
+
+
+
+	/**
+	 * Run
 	 *
 	 * @return void
 	 **/
-	public function fire() {
+	public function go() {
 
-		echo 'me';
+		$name = $this->argument('name');
+		$yell = $this->option('yell');
+
+		$message = 'Hello';
+
+		if(!empty($name)) {
+			$message .= ", $name";
+		}
+
+		if($yell) {
+			$message = strtoupper($message);
+		}
+
+		$this->write("<info>$message</info>");
 
 	}
 
