@@ -36,6 +36,18 @@ abstract class Command extends SymfonyCommand {
 
 
 	/**
+	 * @var string Command name
+	 **/
+	protected $name;
+
+
+	/**
+	 * @var string Command description
+	 **/
+	protected $description;
+
+
+	/**
 	 * @var string Method to execute
 	 **/
 	protected $method = 'fire';
@@ -52,6 +64,32 @@ abstract class Command extends SymfonyCommand {
 		$this->container = $container;
 
 		parent::__construct();
+
+	}
+
+
+
+	/**
+	 * Command arguments
+	 *
+	 * @return array Arguments
+	 **/
+	public function getArguments() {
+
+		return [];
+
+	}
+
+
+
+	/**
+	 * Command options
+	 *
+	 * @return array Options
+	 **/
+	public function getOptions() {
+
+		return [];
 
 	}
 
