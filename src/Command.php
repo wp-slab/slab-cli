@@ -18,9 +18,9 @@ abstract class Command extends SymfonyCommand {
 
 
 	/**
-	 * @var string Method to execute
+	 * @var Slab\Core\ContainerInterface
 	 **/
-	protected $method = 'fire';
+	protected $container;
 
 
 	/**
@@ -33,6 +33,28 @@ abstract class Command extends SymfonyCommand {
 	 * @var Symfony\Component\Console\Output\OutputInterface
 	 **/
 	protected $output;
+
+
+	/**
+	 * @var string Method to execute
+	 **/
+	protected $method = 'fire';
+
+
+	/**
+	 * Constructor
+	 *
+	 * @param Slab\Core\ContainerInterface
+	 * @return void
+	 **/
+	public function __construct(ContainerInterface $container) {
+
+		$this->container = $container;
+
+		parent::__construct();
+
+	}
+
 
 
 	/**
@@ -98,7 +120,7 @@ abstract class Command extends SymfonyCommand {
 
 		$method = $this->getMethod();
 
-		slab()->fireMethod($this, $method); // @todo resolve slab()
+		$this->container->fireMethod($this, $method); // @todo resolve slab()
 
 	}
 
