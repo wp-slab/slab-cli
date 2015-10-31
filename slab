@@ -19,15 +19,4 @@ require_once realpath(dirname(__FILE__)) . '/../../../wp-load.php';
 
 
 // Execute
-$application = new Symfony\Component\Console\Application;
-$application->setName('slab');
-$application->setVersion(SLAB_CLI_VER);
-
-$commands = slab('commands');
-$application->addCommands($commands->getCommands());
-
-$application->run();
-
-// Execute
-// $status = slab('Slab\Cli\Dispatcher')->dispatch($argv);
-// die($status);
+slab('Slab\Cli\Application')->run();
