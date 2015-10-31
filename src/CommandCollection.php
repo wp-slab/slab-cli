@@ -22,6 +22,18 @@ class CommandCollection {
 
 
 	/**
+	 * @var array Resolved commands
+	 **/
+	protected $_commands;
+
+
+	/**
+	 * @var bool Is $commands dirty?
+	 **/
+	protected $_dirty = false;
+
+
+	/**
 	 * @var Slab\Core\ContainerInterface
 	 **/
 	protected $container;
@@ -42,33 +54,6 @@ class CommandCollection {
 
 
 	/**
-	 * Get all commands
-	 *
-	 * @return array Slab\Cli\CommandInterface
-	 **/
-	public function getCommands() {
-
-		return $this->commands;
-
-	}
-
-
-
-	/**
-	 * Get a command by name
-	 *
-	 * @param string Command name
-	 * @return Slab\Cli\CommandInterface
-	 **/
-	public function getCommand($name) {
-
-		return array_key_exists($name, $this->commands) ? $this->commands[$name] : null;
-
-	}
-
-
-
-	/**
 	 * Add a command
 	 *
 	 * @param Slab\Cli\CommandInterface
@@ -76,13 +61,17 @@ class CommandCollection {
 	 **/
 	public function addCommand(CommandInterface $command) {
 
-		$name = $command->getName();
+		$this->commands[] = [true, $command];
 
-		if(array_key_exists($name, $this->commands)) {
-			throw new RuntimeException("A command with the same name already exists: $name");
-		}
+		$this->_dirty = true;
 
-		$this->commands[$name] = $command;
+		// $name = $command->getName();
+
+		// if(array_key_exists($name, $this->commands)) {
+		// 	throw new RuntimeException("A command with the same name already exists: $name");
+		// }
+
+		// $this->commands[$name] = $command;
 
 	}
 
@@ -96,23 +85,78 @@ class CommandCollection {
 	 **/
 	public function resolve($str) {
 
-		$pos = strpos($str, '@');
+		$this->commands[] = [null, $str];
 
-		if($pos === false) {
-			$class = $str;
-			$method = null;
-		} else {
-			$class = substr($str, 0, $pos);
-			$method = substr($str, $pos + 1);
+		$this->_dirty = true;
+
+		// $pos = strpos($str, '@');
+
+		// if($pos === false) {
+		// 	$class = $str;
+		// 	$method = null;
+		// } else {
+		// 	$class = substr($str, 0, $pos);
+		// 	$method = substr($str, $pos + 1);
+		// }
+
+		// $command = $this->container->make($class);
+
+		// if($method) {
+		// 	$command->setMethod($method);
+		// }
+
+		// return $this->addCommand($command);
+
+	}
+
+
+
+	/**
+	 * Get all commands
+	 *
+	 * @return array Slab\Cli\CommandInterface
+	 **/
+	public function getCommands() {
+
+		if($this->_commands !== null and $this->_dirty === false) {
+			return $this->_commands;
 		}
 
-		$command = $this->container->make($class);
+		$commands = [];
 
-		if($method) {
-			$command->setMethod($method);
+		foreach($this->commands as $i => $command) {
+
+			if($command[0] === true) {
+				$commands[] = $command[1];
+				continue;
+			}
+
+			$str = $command[1];
+
+			$pos = strpos($str, '@');
+
+			if($pos === false) {
+				$class = $str;
+				$method = null;
+			} else {
+				$class = substr($str, 0, $pos);
+				$method = substr($str, $pos + 1);
+			}
+
+			$cmd = $this->container->make($class);
+
+			if($method) {
+				$cmd->setMethod($method);
+			}
+
+			$this->commands[$i] = [true, $cmd];
+			$commands[] = $cmd;
+
 		}
 
-		return $this->addCommand($command);
+		$this->_dirty = false;
+
+		return $this->_commands = $commands;
 
 	}
 
