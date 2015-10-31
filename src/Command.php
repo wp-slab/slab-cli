@@ -2,6 +2,8 @@
 
 namespace Slab\Cli;
 
+use Symfony\Component\Console\Command\Command as SymfonyCommand;
+
 use Slab\Core\ContainerInterface;
 
 /**
@@ -10,7 +12,7 @@ use Slab\Core\ContainerInterface;
  * @package default
  * @author Luke Lanchester
  **/
-abstract class Command implements CommandInterface {
+abstract class Command extends SymfonyCommand implements CommandInterface {
 
 
 	/**

@@ -14,10 +14,15 @@ define('WP_USE_THEMES', false);
 
 
 // Setup
-require_once '../../../wp-load.php';
+require_once realpath(dirname(__FILE__)) . '/../../../wp-load.php';
 @ini_set('memory_limit', -1);
 
 
 // Execute
-$status = slab('Slab\Cli\Dispatcher')->dispatch($argv);
-die($status);
+$application = new Symfony\Component\Console\Application;
+// $application->add(new GreetCommand());
+$application->run();
+
+// Execute
+// $status = slab('Slab\Cli\Dispatcher')->dispatch($argv);
+// die($status);
