@@ -62,16 +62,7 @@ class CommandCollection {
 	public function addCommand(CommandInterface $command) {
 
 		$this->commands[] = [true, $command];
-
 		$this->_dirty = true;
-
-		// $name = $command->getName();
-
-		// if(array_key_exists($name, $this->commands)) {
-		// 	throw new RuntimeException("A command with the same name already exists: $name");
-		// }
-
-		// $this->commands[$name] = $command;
 
 	}
 
@@ -86,26 +77,7 @@ class CommandCollection {
 	public function resolve($str) {
 
 		$this->commands[] = [null, $str];
-
 		$this->_dirty = true;
-
-		// $pos = strpos($str, '@');
-
-		// if($pos === false) {
-		// 	$class = $str;
-		// 	$method = null;
-		// } else {
-		// 	$class = substr($str, 0, $pos);
-		// 	$method = substr($str, $pos + 1);
-		// }
-
-		// $command = $this->container->make($class);
-
-		// if($method) {
-		// 	$command->setMethod($method);
-		// }
-
-		// return $this->addCommand($command);
 
 	}
 
